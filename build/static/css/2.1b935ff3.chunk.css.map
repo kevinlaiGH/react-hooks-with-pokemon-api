@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,MACE,mBACF,CAEA,wCACE,kBACF","file":"2.1b935ff3.chunk.css","sourcesContent":[":root {\n  --reach-accordion: 1;\n}\n\n[data-reach-accordion-button][disabled] {\n  cursor: not-allowed;\n}\n"]}
