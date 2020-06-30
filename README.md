@@ -1,1 +1,1 @@
-Deployed: pkm-searcher.netlify.app
+Deployed: https://pkm-searcher.netlify.app

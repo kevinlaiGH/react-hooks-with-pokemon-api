@@ -10,14 +10,15 @@ import "./styles.css";
 
 function App() {
   // * setPokemon(e.target.value) triggers the change
-  let [pokemon, setPokemon] = useState("pikachu")
+  let [pokemon, setPokemon] = useState(window.localStorage.getItem('pokemon') ||'')
   
   let [img, setImg] = useState(null)
   let [abilities, setAbilities] = useState([])
 
   // useEffect takes in a function and dependency array (where dependency change everytime, function runs)
   useEffect(() => {
-    document.title = "saying hello" + pokemon;
+    document.title = "This is " + pokemon;
+    window.localStorage.setItem('pokemon', pokemon);
   }, [pokemon])
 
   // 1st) fetch API 
@@ -41,7 +42,7 @@ function App() {
   }, [pokemon])
 // * setPokemon(e.target.value) triggers the change
   return <div className="App">
-  <input type="text" onChange={(e) =>setPokemon(e.target.value)} />
+  <input id="pokemon" value={pokemon} type="text" onChange={(e) =>setPokemon(e.target.value)} />
   <h1>Stats for {pokemon}</h1>
   <Accordion>
     <AccordionItem>
