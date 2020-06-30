@@ -9,8 +9,11 @@ import "@reach/accordion/styles.css";
 import "./styles.css";
 
 function App() {
-  let [pokemon, setPokemon] = useState("Pikachu")
+  // * setPokemon(e.target.value) triggers the change
+  let [pokemon, setPokemon] = useState("pikachu")
+  
   let [img, setImg] = useState(null)
+  let [abilities, setAbilities] = useState([])
 
   // useEffect takes in a function and dependency array (where dependency change everytime, function runs)
   useEffect(() => {
@@ -26,21 +29,41 @@ function App() {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
     .then(res => res.json())
     .then(res => {
-      if (isCurrent) setImg(res.sprites.front_default)
+      if (isCurrent) {
+        setImg(res.sprites.front_default)
+        setAbilities(res.abilities);
+      }
     })
     .catch(() => console.log("stop it"))
     return () => {
       isCurrent = false
     }
   }, [pokemon])
-  return <div>
-  <div className="App">
-    <input type="text" onChange={(e) => setPokemon(e.target.value)}/>
-  </div> 
-  Hello, {pokemon} !
-
-  {img && <img src={img} alt sprite/>}
-  </div>
+// * setPokemon(e.target.value) triggers the change
+  return <div className="App">
+  <input type="text" onChange={(e) =>setPokemon(e.target.value)} />
+  <h1>Stats for {pokemon}</h1>
+  <Accordion>
+    <AccordionItem>
+      <h3>
+        <AccordionButton>Sprite</AccordionButton>
+      </h3>
+      <AccordionPanel>
+        {img && <img src={img} alt="Sprite" />}
+      </AccordionPanel>
+    </AccordionItem>
+    <AccordionItem>
+      <h3>
+        <AccordionButton>Abilities</AccordionButton>
+      </h3>
+      <AccordionPanel>
+      {abilities.map(a => {
+              return <div>{a?.ability?.name}</div>;
+            })}
+      </AccordionPanel>
+    </AccordionItem>
+  </Accordion>
+</div>
 
 }
 
